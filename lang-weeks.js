@@ -1,0 +1,62 @@
+/* ==========================================================================
+   lang-weeks.js — 52 周标题三语词典（由 _gen/build_week_titles.py 生成，勿手改）
+   加载顺序：lang.js → lang-weeks.js → app.js
+   键名约定：week.{n}.title = [中文, English, Français]
+   ========================================================================== */
+(function () {
+  if (!window.LANG || typeof window.LANG.register !== 'function') return;
+  window.LANG.register({
+    'week.1.title': ["语音入门：字母、音符与拼读规律", "Sounds first: alphabet, accents and spelling rules", "Les sons d'abord : alphabet, accents et règles de lecture"],
+    'week.2.title': ["音素系统：元音、鼻化元音与联诵", "The sound system: vowels, nasals and liaison", "Le système des sons : voyelles, nasales et liaison"],
+    'week.3.title': ["名词的性与数、定冠词与不定冠词", "Gender, number, and definite/indefinite articles", "Genre, nombre, articles définis et indéfinis"],
+    'week.4.title': ["主语人称代词与 être / avoir", "Subject pronouns and être / avoir", "Pronoms sujets et être / avoir"],
+    'week.5.title': ["第一组动词 -er 现在时与否定", "-er verbs in the present tense; negation", "Verbes en -er au présent ; la négation"],
+    'week.6.title': ["形容词性数配合与位置", "Adjective agreement and position", "Accord et place de l'adjectif"],
+    'week.7.title': ["疑问句三式与疑问词", "Three ways to ask a question; question words", "Trois façons d'interroger ; les mots interrogatifs"],
+    'week.8.title': ["高频不规则动词与数字时间", "High-frequency irregular verbs; numbers and time", "Verbes irréguliers fréquents ; nombres et heure"],
+    'week.9.title': ["部分冠词、食物与点单场景", "Partitive articles, food and ordering", "Articles partitifs, alimentation et commande"],
+    'week.10.title': ["主有形容词、指示形容词与家庭", "Possessives, demonstratives and family", "Possessifs, démonstratifs et famille"],
+    'week.11.title': ["最近将来与最近过去、计划与刚发生", "Near future and recent past", "Futur proche et passé récent"],
+    'week.12.title': ["礼貌表达、日常请求与正式书信格式", "Politeness, requests and formal letter layout", "Politesse, demandes et mise en forme d'une lettre"],
+    'week.13.title': ["阶段测：A1 全项模拟与复盘（词汇 600）", "Gate week: full A1 mock test and review (600 words)", "Jalon : examen blanc A1 complet et bilan (600 mots)"],
+    'week.14.title': ["复合过去时（一）：avoir 助动词与过去分词", "Passé composé 1: avoir and past participles", "Passé composé 1 : auxiliaire avoir et participes passés"],
+    'week.15.title': ["复合过去时（二）：être 助动词与过去分词配合", "Passé composé 2: être and participle agreement", "Passé composé 2 : auxiliaire être et accord du participe"],
+    'week.16.title': ["未完成过去时：描写与习惯", "Imparfait: description and habits", "Imparfait : description et habitudes"],
+    'week.17.title': ["两种过去时的分工与叙事骨架", "Passé composé vs imparfait in narration", "Passé composé et imparfait dans le récit"],
+    'week.18.title': ["愈过去时与时间先后表达", "Plus-que-parfait and sequencing events", "Plus-que-parfait et chronologie"],
+    'week.19.title': ["简单将来时与计划表达", "Futur simple and talking about plans", "Futur simple et expression des projets"],
+    'week.20.title': ["简单条件式：礼貌、愿望与假设入门", "Conditional: politeness, wishes, first hypotheses", "Conditionnel : politesse, souhaits, premières hypothèses"],
+    'week.21.title': ["间接宾语代词与副代词 y / en", "Indirect object pronouns; the adverbials y / en", "Pronoms COI ; les adverbes y / en"],
+    'week.22.title': ["代词顺序、命令式与代词连用", "Pronoun order, imperative, and combined pronouns", "Ordre des pronoms, impératif et pronoms combinés"],
+    'week.23.title': ["工作与求职：词汇、简历与动机信", "Work and job hunting: CV and cover letter", "Travail et recherche d'emploi : CV et lettre de motivation"],
+    'week.24.title': ["比较级、最高级与数量表达", "Comparatives, superlatives and quantity", "Comparatifs, superlatifs et expression de la quantité"],
+    'week.25.title': ["阅读与听力冲刺：400 词短文 + 泛听泛读", "Reading and listening push: 400-word texts, extensive practice", "Lecture et écoute : textes de 400 mots, pratique extensive"],
+    'week.26.title': ["阶段测：DELF A2 模拟与复盘（词汇 1200）", "Gate week: DELF A2 mock test and review (1,200 words)", "Jalon : examen blanc DELF A2 et bilan (1 200 mots)"],
+    'week.27.title': ["B1 起点：抽象话题词汇与关系从句", "B1 start: abstract vocabulary and relative clauses", "Début du B1 : vocabulaire abstrait et relatives"],
+    'week.28.title': ["教育与学习：表达观点与间接引语入门", "Education: giving opinions and indirect speech", "Éducation : donner son avis et discours indirect"],
+    'week.29.title': ["虚拟式（一）：形式与意志、情感、必要", "Subjunctive 1: forms, will, emotion, necessity", "Subjonctif 1 : formes, volonté, émotion, nécessité"],
+    'week.30.title': ["环境与生态：观点陈述与论述段写作", "Environment: stating a case and writing an argument", "Environnement : argumenter et rédiger"],
+    'week.31.title': ["被动语态与媒体信息处理", "The passive voice and handling media information", "Voix passive et traitement de l'information"],
+    'week.32.title': ["分词式与科技话题", "Participles and technology topics", "Participes et sujets technologiques"],
+    'week.33.title': ["阶段测：DELF B1 模拟（词汇 2000）", "Gate week: DELF B1 mock test (2,000 words)", "Jalon : examen blanc DELF B1 (2 000 mots)"],
+    'week.34.title': ["逻辑连接词体系（原因/结果/对立/让步）", "Connectors: cause, consequence, contrast, concession", "Connecteurs : cause, conséquence, opposition, concession"],
+    'week.35.title': ["条件式与假设三型", "Conditional and the three types of hypothesis", "Conditionnel et les trois types d'hypothèse"],
+    'week.36.title': ["工作与职业规划：面试与职场沟通", "Careers: interviews and workplace communication", "Carrière : entretien et communication professionnelle"],
+    'week.37.title': ["社会议题与观点辩护", "Social issues: defending a position", "Questions de société : défendre une position"],
+    'week.38.title': ["阅读长文与听力笔记法", "Long texts and note-taking for listening", "Textes longs et prise de notes à l'écoute"],
+    'week.39.title': ["写作攻坚：200–250 词论述与正式信函", "Writing push: 200–250-word essays and formal letters", "Écrit : essais de 200–250 mots et lettres formelles"],
+    'week.40.title': ["B1 出口测：全项模拟与 B2 过渡（词汇 2500）", "B1 exit test: full mock and transition to B2 (2,500 words)", "Sortie B1 : examen blanc complet et passage au B2 (2 500 mots)"],
+    'week.41.title': ["时态配合与复杂关系从句", "Tense agreement and complex relative clauses", "Concordance des temps et relatives complexes"],
+    'week.42.title': ["B2 论述入门：立场文结构与论点库", "B2 argumentation: essay structure and argument bank", "Argumentation B2 : structure et banque d'arguments"],
+    'week.43.title': ["虚拟式过去时与过去假设", "Past subjunctive and past hypotheses", "Subjonctif passé et hypothèses passées"],
+    'week.44.title': ["环境、政治与法律长文与辩论", "Environment, politics and law: long texts and debate", "Environnement, politique et droit : textes longs et débat"],
+    'week.45.title': ["条件式过去时与三种假设的高级用法", "Past conditional and advanced hypotheses", "Conditionnel passé et hypothèses avancées"],
+    'week.46.title': ["写作攻坚：250 词论说文与正式信函", "Writing push: 250-word essays and formal letters", "Écrit : essais de 250 mots et lettres formelles"],
+    'week.47.title': ["被动、使役与名词化：书面语体进阶", "Passive, causative, nominalisation: written register", "Passif, causatif, nominalisation : registre écrit"],
+    'week.48.title': ["文化、媒体与长篇听力", "Culture, media and long-form listening", "Culture, médias et écoute longue"],
+    'week.49.title': ["口语攻坚：正式陈述与辩论表达", "Speaking push: formal presentations and debate", "Oral : exposé formel et débat"],
+    'week.50.title': ["真实语料周：无字幕新闻、原版文章与语伴", "Authentic input week: unsubtitled news, real articles, partners", "Semaine authentique : infos sans sous-titres, articles, partenaires"],
+    'week.51.title': ["全真模考周（一）：DELF B2 完整模拟与批改", "Full mock week 1: complete DELF B2 simulation and marking", "Examen blanc 1 : simulation complète DELF B2 et correction"],
+    'week.52.title': ["全真模考周（二）+ 年度总结与后续路线", "Full mock week 2 + year review and next steps", "Examen blanc 2 + bilan de l'année et suite du parcours"]
+  });
+})();

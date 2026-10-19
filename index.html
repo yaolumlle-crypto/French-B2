@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首页 · 法语 B2 一年计划</title>
+<meta name="description" content="从零基础到 DELF B2 的一年法语学习站：52 周课程路线、发音、语法、2500 核心词、40 篇情境对话与四套模拟卷。">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span data-i18n="brand">法语 B2 · 一年计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html" data-i18n="nav.home">首页</a>
+      <a href="calendar.html" data-i18n="nav.calendar">52周计划</a>
+      <a href="phonetics.html" data-i18n="nav.phonetics">发音</a>
+      <a href="grammar.html" data-i18n="nav.grammar">语法</a>
+      <a href="vocab.html" data-i18n="nav.vocab">词汇</a>
+      <a href="dialogue.html" data-i18n="nav.dialogue">对话</a>
+      <a href="exams.html" data-i18n="nav.exams">考试</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ================= 首屏 ================= -->
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow" data-i18n="idx.hero.eyebrow">一年 · 从零到 B2</p>
+      <h1 data-i18n="idx.hero.h1">一年把法语学到 B2，用一个页面管住全部学习。</h1>
+      <p class="lede" data-i18n-html="idx.hero.lede">
+        这不是一个"收藏了就不会再打开"的资料页，而是一套完整的封闭课程：<strong>52 周逐周路线</strong>，
+        配发音体系、分级语法、2500 个核心词、40 篇情境对话和 4 套 DELF B2 模拟卷。
+        你只需要按周打卡，剩下的交给路线。
+      </p>
+      <div class="btn-row mt-3">
+        <a class="btn btn-primary" href="calendar.html" data-i18n="idx.hero.cta1">开始第 1 周 →</a>
+        <a class="btn" href="phonetics.html" data-i18n="idx.hero.cta2">先学发音（第 1 周任务）</a>
+        <a class="btn btn-ghost" href="#how" data-i18n="idx.hero.cta3">怎么用这个站</a>
+      </div>
+      <p class="muted small" data-i18n="idx.hero.b2def">
+        B2 是 CEFR 第四级：能听懂广播与辩论的主旨、读懂长篇论述、写出 250 词的论说文与正式信函、
+        与母语者就广泛话题自然交谈而不吃力。DELF B2 通过线为 100 分制总分 ≥50 且单项 ≥5。
+      </p>
+    </div>
+  </div>
+
+  <!-- ================= 仪表盘 ================= -->
+  <div class="wrap">
+    <section class="section" id="dash" aria-label="我的学习进度">
+      <div class="card">
+        <div class="flex between">
+          <div>
+            <h2 class="mb-0" data-i18n="idx.dash.title">我的进度</h2>
+            <p class="muted small mb-0" data-i18n="idx.dash.note">数据保存在你当前浏览器的本地存储里，不上传、不注册。</p>
+          </div>
+          <div class="ring" id="dRing" role="img" aria-label="课程完成度"><div><span>0%</span></div></div>
+        </div>
+
+        <div class="grid grid-4 mt-3">
+          <div class="tile"><div class="k" id="dDone">0</div><div class="l" data-i18n="idx.dash.done">已完成周数 / 52</div></div>
+          <div class="tile"><div class="k" id="dCurWeek">1</div><div class="l" data-i18n="idx.dash.cur">当前应学第几周</div></div>
+          <div class="tile"><div class="k" id="dLeft">52</div><div class="l" data-i18n="idx.dash.left">剩余周数</div></div>
+          <div class="tile"><div class="k" id="dElapsed">0</div><div class="l" data-i18n="idx.dash.elapsed">已坚持天数</div></div>
+        </div>
+
+        <div class="grid grid-3 grid-date mt-3">
+          <div class="tile"><div class="l" data-i18n="idx.dash.start">起学日期</div><div class="k" id="dStart" style="font-size:1rem">—</div></div>
+          <div class="tile"><div class="l" data-i18n="idx.dash.phase">当前所在阶段</div><div class="k" id="dPhase" style="font-size:1rem">第一阶段 · 基础夯实（A1）</div></div>
+          <div class="tile"><div class="l" data-i18n="idx.dash.range">本周区间</div><div class="k" id="dCurRange" style="font-size:1rem">—</div></div>
+        </div>
+
+        <div class="mt-3">
+          <div class="bar"><i id="dPos" style="width:0"></i></div>
+          <p class="muted small mt-1 mb-0" data-i18n-html="idx.dash.barNote">全年 52 周总进度。到 <a href="calendar.html">52 周计划</a> 里给完成的周打勾，这里会自动更新。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 起始位置（自定义从哪开始） ================= -->
+    <section class="section" id="start">
+      <h2 data-i18n="start.title">我要从哪里开始</h2>
+      <p class="zh" data-i18n="start.help">
+        先做下面的 60 秒自评，或直接选起始周。设定后：进度条的起点会前移、日历里起始周之前的周次标记为已掌握，日期也按新起点重算。
+      </p>
+
+      <h3 class="mt-3" data-i18n="pl.title">60 秒自评：你现在在哪一级</h3>
+      <p class="zh small" data-i18n="pl.help">
+        选最符合你现在情况的描述（不确定就选更低的），系统会把起始位置设到对应段落。
+      </p>
+      <div id="placeOptions"></div>
+      <p class="muted small mt-2" id="placeChosen" aria-live="polite"></p>
+
+      <div class="start-bar mt-3">
+        <div class="grid grid-date" style="display:grid">
+          <div class="tile">
+            <div class="l" data-i18n="start.current">当前起始位置</div>
+            <div class="k" id="dBaseWeek">第 1 周</div>
+            <p class="muted small mb-0" data-i18n="start.autoNote">未自定义时，默认从第 1 周开始。</p>
+          </div>
+          <div class="tile">
+            <div class="l" data-i18n="start.remaining">从起点起还需学习</div>
+            <div class="k"><span id="remainWeekCount">52</span> <span class="small muted" data-i18n="start.weeks">周</span></div>
+            <p class="muted small mb-0" data-i18n="pl.addToCal">把起点周的任务抄进日历，然后每周打勾即可。</p>
+          </div>
+          <div class="tile">
+            <div class="l" data-i18n="start.weekLabel">起始周次</div>
+            <div class="flex mt-1">
+              <select id="startWeekSelect" aria-label="起始周次"></select>
+              <button class="btn btn-sm btn-primary" type="button" id="startWeekApply" data-i18n="start.apply">设为起始位置</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 为什么能一年到 B2 ================= -->
+    <section class="section" id="why">
+      <h2 data-i18n="idx.why.title">一年到 B2，凭什么可行</h2>
+      <p class="lede" data-i18n-html="idx.why.lede">
+        B2 不是天赋问题，是总量问题。按 FSI（美国外交学院）的语言难度分级，
+        <strong>法语对英语母语者属于"约 30 周高强度"的类别</strong>；法语与英语共享大量词汇，
+        而对中文母语者来说真正的额外成本主要在发音、性和动词变位。所以把时间给够了，进度是可以被设计出来的。
+      </p>
+
+      <div class="grid grid-3 mt-2">
+        <div class="card">
+          <h3 data-i18n="idx.why.c1.title">① 时间总量够</h3>
+          <p class="mb-0" data-i18n-html="idx.why.c1.body">
+            每周 <strong>12–14 小时</strong>（每天约 2 小时 + 周末复盘），一年约 <strong>650–700 小时</strong>。
+            这是从零到 B2 的现实区间（A1 约 80h、A2 约 200h、B1 约 400h、B2 约 650h）。
+          </p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="idx.why.c2.title">② 路线不浪费</h3>
+          <p class="mb-0" data-i18n="idx.why.c2.body">
+            52 周按"语音 → 骨架 → 输出 → 论述"排列，语法点按出现频率排序，
+            高频结构先学，冷门语法留到 B2 后段，避免零基础初期被细节拖死。
+          </p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="idx.why.c3.title">③ 输出被强制</h3>
+          <p class="mb-0" data-i18n="idx.why.c3.body">
+            每天必须"说"和"写"，40% 时间用于产出。B2 的瓶颈几乎从来不是"没学过"，
+            而是"学过但调不出来"——只能靠输出解决。
+          </p>
+        </div>
+      </div>
+
+      <div class="note note-warn mt-3">
+        <div class="note-title" data-i18n="idx.why.boundary.title">先说清楚边界（不吹"包过"）</div>
+        <p class="mb-0" data-i18n="idx.why.boundary.body">
+          本站把 B2 所需的<strong>全部内容、顺序、练习与检测</strong>都编排好了，但结果由你的出勤决定。经验上：
+          每周有效投入 ≥12 小时、不出现连续 3 天以上中断、输出时长占比 ≥40%，
+          一年达到 B2 是大概率事件；反之，只输入不输出、或每周不足 5 小时，通常停在 A2–B1。
+          所以本页的"保证"是<strong>课程完整性</strong>的保证：不跳步、不缺口、每周都有可检验的产出。
+        </p>
+      </div>
+    </section>
+
+    <!-- ================= 四阶段路线图 ================= -->
+    <section class="section" id="roadmap">
+      <h2>四阶段路线图</h2>
+      <p class="zh">52 周被切成四段，每段都有一项硬指标，达不到就不要往下走——这是避免"夹生"的关键。</p>
+
+      <div class="timeline mt-2">
+        <div class="tl-item">
+          <div class="tl-q">第 1–13 周 · 第一阶段</div>
+          <h3>基础夯实 <span class="badge badge-a1">A1</span></h3>
+          <p class="mb-0 zh">
+            发音一旦定型很难改，所以前两周不讲语法，先把 35 个音素、联诵规则和拼读规律拿下。
+            随后进入现在时、冠词、性数配合、否定疑问与代词，掌握 600 个高频词，能完成自我介绍、点单、问路、约时间。
+            <br><strong>出口标准：</strong>能就日常话题连续说出 1 分钟；能听懂慢速日常对话 80%。
+          </p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-q">第 14–26 周 · 第二阶段</div>
+          <h3>日常流畅 <span class="badge badge-a2">A2</span></h3>
+          <p class="mb-0 zh">
+            攻克法语最大的关卡——过去时体系（复合过去时 / 未完成过去时 / 愈过去时），
+            加上将来时、条件式礼貌用法、代词位置与人称代词系统。词汇涨到 1200，开始读 400 词短文、写 120 词记叙。
+            <br><strong>出口标准：</strong>能完整叙述一段经历；能处理租房、看病、退货、银行等真实场景。
+          </p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-q">第 27–40 周 · 第三阶段</div>
+          <h3>独立表达 <span class="badge badge-b1">B1</span></h3>
+          <p class="mb-0 zh">
+            虚拟式、关系代词 dont/lequel、间接引语、被动与分词式、逻辑连接词成体系地进来，
+            同时开始读 800 词报刊文章、写 200 词论述段，做 DELF B1 全套模拟。
+            <br><strong>出口标准：</strong>能就争议话题给出观点 + 两条理由 + 一个反例；听懂正常语速广播主旨。
+          </p>
+        </div>
+        <div class="tl-item">
+          <div class="tl-q">第 41–52 周 · 第四阶段</div>
+          <h3>论述与灵活 <span class="badge badge-b2">B2</span></h3>
+          <p class="mb-0 zh">
+            B2 的分水岭：虚拟式过去时、时态配合、条件式过去时与三种假设、名词化与书面语体、
+            复杂逻辑连接与让步反驳。阅读进入 1200 词以上长文，写作进入 250 词论说文与正式信函，
+            口语进入"陈述 + 与考官辩论"。
+            <br><strong>出口标准：</strong>DELF B2 模拟卷总分 ≥50 且无单项低于 5；能脱稿就社会议题陈述 10 分钟并应对追问。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 每日循环 ================= -->
+    <section class="section" id="daily">
+      <h2>每天怎么学：2 小时标准循环</h2>
+      <p class="zh">固定顺序比固定时长更重要。下面这套顺序（词汇 → 语法 → 输入 → 输出）利用了"先热身再攻坚、最后固化"的记忆规律。</p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>时段</th><th>时长</th><th>做什么</th><th>用到本站哪部分</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1. 词汇</td><td class="num">20 分钟</td><td>间隔重复复习昨日 + 新学 20–30 词，只记"词 + 一个搭配"，不背孤立单词表</td><td><a href="vocab.html">词汇</a></td></tr>
+            <tr><td>2. 语法</td><td class="num">25 分钟</td><td>读当周语法点讲解 + 做例句小测，重点是"造 5 个自己的句子"而不是记规则</td><td><a href="grammar.html">语法</a></td></tr>
+            <tr><td>3. 精听</td><td class="num">25 分钟</td><td>一段 1–2 分钟音频，三遍法：抓大意 → 逐句听写 → 对照原文跟读</td><td><a href="dialogue.html">对话</a> / <a href="exams.html">考试</a>听力原文</td></tr>
+            <tr><td>4. 口语</td><td class="num">20 分钟</td><td>影子跟读 + 用当周语法点自述 3 分钟，录音回听，改 3 个错误</td><td><a href="dialogue.html">对话</a>的输出任务</td></tr>
+            <tr><td>5. 阅读</td><td class="num">20 分钟</td><td>按周进度读短文/报刊，只查"影响理解的关键词"，其余靠猜</td><td><a href="exams.html">模拟卷阅读</a></td></tr>
+            <tr><td>6. 写作</td><td class="num">15 分钟</td><td>写 5–8 句日记或造句，用当天学的语法与词汇，不求长只求用上</td><td><a href="grammar-b1b2.html">书面语句式</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid grid-2 mt-2">
+        <div class="card">
+          <h3>每周固定动作</h3>
+          <ul class="mb-0">
+            <li><strong>周一</strong>：看本周任务清单，录入新词库（30 分钟规划）</li>
+            <li><strong>周二至周五</strong>：每天 2 小时标准循环</li>
+            <li><strong>周六</strong>：3 小时"输出日"——写作一篇 + 口语录音一次 + 找语伴或 AI 对话</li>
+            <li><strong>周日</strong>：1 小时复盘——错题重做、当周语法自测、给 <a href="calendar.html">周计划</a> 打勾</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>三条不可协商的纪律</h3>
+          <ul class="mb-0">
+            <li><strong>朗读出声</strong>：默读不建立语音记忆，法语尤其如此（联诵、省音只在口头存在）</li>
+            <li><strong>当日产出</strong>：宁少勿断，每天至少写 5 句、说 1 分钟</li>
+            <li><strong>每周留痕</strong>：录音/作文按月存档，第 13、26、40、52 周回听，进步是最强的动力来源</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 模块入口 ================= -->
+    <section class="section" id="modules">
+      <h2 data-i18n="idx.modules.title">六大模块</h2>
+      <p class="zh" data-i18n="idx.modules.note">每个模块都可以独立使用，但建议按路线图的顺序推进。</p>
+      <div class="grid grid-3">
+        <a class="card card-link" href="phonetics.html">
+          <h3><span data-i18n="idx.mod.phon">发音与拼读</span> <span class="badge badge-a1" data-i18n="idx.mod.fromStart">A1 起点</span></h3>
+          <p data-i18n="idx.mod.phon.desc">法语字母表、35 音素 IPA 总表、联诵三类规则、哑音与词末辅音规律、语调节奏，附中国人常见发音陷阱对照与绕口令。</p>
+          <span class="arrow" data-i18n="idx.mod.phon.cta">去学发音 →</span>
+        </a>
+        <a class="card card-link" href="calendar.html">
+          <h3 data-i18n="idx.mod.cal">52 周课程表</h3>
+          <p data-i18n="idx.mod.cal.desc">逐周拆解的主题、语法点、词汇量目标、听说读写任务与阶段里程碑，可打勾打卡，自动计算当前周与总进度。</p>
+          <span class="arrow" data-i18n="idx.mod.cal.cta">查看 52 周 →</span>
+        </a>
+        <a class="card card-link" href="grammar.html">
+          <h3><span data-i18n="idx.mod.gr">语法体系</span> <span class="badge badge-a1">A1</span><span class="badge badge-b2 badge-inline">B2</span></h3>
+          <p data-i18n="idx.mod.gr.desc">四级索引 + 两张详解页：从冠词性数到虚拟式、条件式过去时、时态配合、名词化与书面语体，每点配例句、翻译与易错提示。</p>
+          <span class="arrow" data-i18n="idx.mod.gr.cta">进入语法 →</span>
+        </a>
+        <a class="card card-link" href="vocab.html">
+          <h3 data-i18n="idx.mod.vo">核心词汇 2500+</h3>
+          <p data-i18n="idx.mod.vo.desc">25 个主题域的高频词，逐条带 IPA、中文释义与常用搭配，可按 A1–B2 筛选，附构词法、近义词辨析与假朋友清单。</p>
+          <span class="arrow" data-i18n="idx.mod.vo.cta">开始背词 →</span>
+        </a>
+        <a class="card card-link" href="dialogue.html">
+          <h3 data-i18n="idx.mod.dl">情境对话 40 篇</h3>
+          <p data-i18n="idx.mod.dl.desc">A1 到 B2 的真实场景对话，法中对照逐句呈现，含场景说明、生词、语用提示与输出任务，可直接做影子跟读。</p>
+          <span class="arrow" data-i18n="idx.mod.dl.cta">练听说 →</span>
+        </a>
+        <a class="card card-link" href="exams.html">
+          <h3 data-i18n="idx.mod.ex">DELF B2 考试</h3>
+          <p data-i18n="idx.mod.ex.desc">题型与评分细则、听力速记法、250 词论说文模板与三档范文、口语辩论表达、4 套完整模拟卷与资源清单。</p>
+          <span class="arrow" data-i18n="idx.mod.ex.cta">准备考试 →</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ================= 怎么用 ================= -->
+    <section class="section" id="how">
+      <h2>怎么用这个站</h2>
+      <div class="layout-side">
+        <aside class="toc">
+          <div class="toc-title">本页目录</div>
+          <a href="#dash">我的进度</a>
+          <a href="#why">为什么可行</a>
+          <a href="#roadmap">四阶段路线</a>
+          <a href="#daily">每日循环</a>
+          <a href="#modules">六大模块</a>
+          <a href="#how">使用方法</a>
+          <a href="#faq">常见问题</a>
+        </aside>
+        <div>
+          <ol>
+            <li><strong>今天就读发音页</strong>，用两周把拼读规则练到"见词能读"。</li>
+            <li>打开 <a href="calendar.html">52 周计划</a>，把第 1 周的清单抄进你的日历，然后每周打勾。</li>
+            <li>每周主题在日历页点开可见：语法点 → 到语法页精读；词汇量 → 到词汇页筛选对应主题；任务 → 到对话/考试页做练习。</li>
+            <li>每 13 周做一次阶段测（第 13、26、40、52 周），用 <a href="exams.html">模拟卷</a> 检验，不达标就把该阶段延长 2 周。</li>
+            <li>所有页面右上角没有账号体系：进度在本机，换设备请自行导出笔记。</li>
+          </ol>
+
+          <h3 id="faq">常见问题</h3>
+          <details>
+            <summary>每天只有 1 小时，还能一年到 B2 吗？</summary>
+            <p class="mb-0">
+              每周 7 小时的话，现实目标是 <strong>B1</strong>（约需 18–24 个月到 B2）。建议做法：
+              保留"词汇 + 输出"两块不可省（共 40 分钟），听力和阅读用作通勤泛听泛读，
+              用 52 周路线走到第 40 周时停在 B1 出口，再花半年补足 B2 段。
+            </p>
+          </details>
+          <details>
+            <summary>为什么先花两周只学发音？</summary>
+            <p class="mb-0">
+              法语的拼写与读音对应度很高，学会规则后能"见词读音、听音拼词"，
+              之后所有词汇记忆都自带语音线索。反过来，如果一开始用汉语拼音式发音去记词，
+              错误发音会被反复强化，后期纠正成本远高于现在投入的两周。
+            </p>
+          </details>
+          <details>
+            <summary>没有语伴怎么办？</summary>
+            <p class="mb-0">
+              三种替代：① 影子跟读（把 <a href="dialogue.html">对话页</a> 的句子延迟 1 秒复述，模仿语调）；
+              ② 自问自答录音（每天 3 分钟，用当周语法点自述并回听纠错）；
+              ③ 与 AI 用法语角色扮演，明确要求它纠正你的语法和用词，而不是迎合你。
+            </p>
+          </details>
+          <details>
+            <summary>B2 之后呢？</summary>
+            <p class="mb-0">
+              第 52 周之后进入纯输入 + 高频输出阶段：读原版小说与报刊社论、看无字幕新闻、
+              每周两次 45 分钟真实对话。C1 的关键从"结构"转向"语域与地道搭配"，本站不再覆盖。
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html">首页</a><a href="calendar.html">52周计划</a><a href="phonetics.html">发音</a>
+      <a href="grammar.html">语法</a><a href="vocab.html">词汇</a><a href="dialogue.html">对话</a><a href="exams.html">考试</a>
+    </div>
+    <p class="mb-0" data-i18n-html="foot.plan">「法语 B2 · 一年计划」是一个纯静态学习站，进度保存在你的浏览器本地。© <span id="year"></span></p>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部" data-i18n-attr="aria-label:nav.home">↑</button>
+<script src="lang.js"></script>
+<script src="lang-weeks.js"></script>
+<script src="app.js"></script>
+<script src="i18n-core.js"></script>
+</body>
+</html>

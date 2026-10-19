@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>52 周计划 · 法语 B2 一年计划</title>
+<meta name="description" content="从零到 DELF B2 的 52 周逐周课程表：每周主题、语法点、词汇量目标、听说读写任务与阶段里程碑，可打卡追踪。">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到主要内容</a>
+
+<header class="site-nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <span class="flag" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span data-i18n="brand">法语 B2 · 一年计划</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="index.html" data-i18n="nav.home">首页</a>
+      <a href="calendar.html" data-i18n="nav.calendar">52周计划</a>
+      <a href="phonetics.html" data-i18n="nav.phonetics">发音</a>
+      <a href="grammar.html" data-i18n="nav.grammar">语法</a>
+      <a href="vocab.html" data-i18n="nav.vocab">词汇</a>
+      <a href="dialogue.html" data-i18n="nav.dialogue">对话</a>
+      <a href="exams.html" data-i18n="nav.exams">考试</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+
+    <div class="hero" style="padding-top:24px">
+      <p class="eyebrow" data-i18n="cal.eyebrow">课程主干</p>
+      <h1 data-i18n="cal.title">52 周课程表</h1>
+      <p class="lede" data-i18n="cal.lede">
+        一年 52 周，每周一个主题、一个语法重点、一个词汇量目标，以及雷打不动的听说读写四项任务。
+        点击任意周即可查看当周清单；完成的周会变绿，进度自动保存在本机。
+      </p>
+    </div>
+
+    <!-- ============ 进度总览 ============ -->
+    <section class="section" id="progress">
+      <div class="card">
+        <div class="flex between">
+          <div>
+            <h2 class="mb-0" data-i18n="cal.progress.title">进度追踪</h2>
+            <p class="muted small mb-0">
+              <span data-i18n="idx.dash.start">起学日期</span>：<span id="startDateLabel">—</span> ·
+              <span data-i18n="cal.planEnd">计划结束</span>：<span id="endDateLabel">—</span> ·
+              <span data-i18n="idx.dash.elapsed">已坚持天数</span> <span id="elapsedDays" class="num">0</span>
+            </p>
+          </div>
+          <div class="center">
+            <div class="k num" style="font-size:1.9rem;font-weight:700"><span id="doneCount">0</span><span class="muted" style="font-size:1rem">/52</span></div>
+            <div class="l muted small" data-i18n="cal.doneWeeks">已完成周数</div>
+          </div>
+        </div>
+        <div class="bar mt-2"><i id="doneBar" style="width:0"></i></div>
+
+        <div class="grid grid-3 grid-date mt-3">
+          <div class="tile"><div class="l" data-i18n="cal.current">当前应学</div><div class="k"><span id="currentWeekNo">1</span><span id="currentWeekLabel" hidden></span></div></div>
+          <div class="tile"><div class="l" data-i18n="cal.thisWeek">本周日期</div><div class="k" id="currentWeekRange" style="font-size:1rem">—</div></div>
+          <div class="tile">
+            <div class="l" data-i18n="cal.resetLabel">重置进度</div>
+            <button class="btn btn-sm mt-1" type="button" id="resetBtn" data-i18n="btn.reset">清空打卡记录</button>
+          </div>
+        </div>
+
+        <!-- ===== 起始位置（自定义开始学习的位置） ===== -->
+        <div class="start-bar mt-3">
+          <h3 class="mb-1" data-i18n="start.title">我要从哪里开始</h3>
+          <p class="zh small" data-i18n="start.help">
+            先做下面的 60 秒自评，或直接选起始周。设定后：进度条的起点会前移、日历里起始周之前的周次标记为已掌握，日期也按新起点重算。
+          </p>
+          <div class="grid grid-date" style="display:grid">
+            <div class="tile">
+              <div class="l" data-i18n="start.current">当前起始位置</div>
+              <div class="k" id="startWeekLabel">第 1 周</div>
+            </div>
+            <div class="tile">
+              <div class="l" data-i18n="start.remaining">从起点起还需学习</div>
+              <div class="k"><span id="remainWeekCount">52</span> <span class="small muted" data-i18n="start.weeks">周</span></div>
+            </div>
+            <div class="tile">
+              <div class="l" data-i18n="start.weekLabel">起始周次</div>
+              <div class="flex mt-1">
+                <select id="startWeekSelect" aria-label="起始周次"></select>
+                <button class="btn btn-sm btn-primary" type="button" id="startWeekApply" data-i18n="start.apply">设为起始位置</button>
+              </div>
+            </div>
+          </div>
+
+          <h4 class="mt-3 mb-1" data-i18n="pl.title">60 秒自评：你现在在哪一级</h4>
+          <p class="zh small" data-i18n="pl.help">
+            选最符合你现在情况的描述（不确定就选更低的），系统会把起始位置设到对应段落。
+          </p>
+          <div id="calPlacement"></div>
+          <p class="muted small mt-2 mb-0" id="placeChosen" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div id="weekDetail" class="card mt-3" aria-live="polite">
+        <h3 class="mb-0">点一个周次，看这一周要做什么</h3>
+        <p class="zh mb-0 small">
+          每周清单包含：主题、语法重点（到 <a href="grammar.html">语法页</a>精读）、词汇量目标（到 <a href="vocab.html">词汇页</a>筛选）、
+          听 / 说 / 读 / 写 四项任务（到 <a href="dialogue.html">对话页</a>、<a href="exams.html">考试页</a>取材）与阶段里程碑。
+        </p>
+      </div>
+    </section>
+
+    <!-- ============ 四阶段说明 ============ -->
+    <section class="section">
+      <div class="grid grid-4">
+        <div class="card"><h3 class="mb-0">第 1–13 周 <span class="badge badge-a1">A1</span></h3><p class="small mb-0 zh">基础夯实。发音定型、现在时、冠词性数、代词与疑问否定，词汇 600。</p></div>
+        <div class="card"><h3 class="mb-0">第 14–26 周 <span class="badge badge-a2">A2</span></h3><p class="small mb-0 zh">日常流畅。过去时体系、将来与条件式、代词位置，词汇 1200。</p></div>
+        <div class="card"><h3 class="mb-0">第 27–40 周 <span class="badge badge-b1">B1</span></h3><p class="small mb-0 zh">独立表达。虚拟式、dont/lequel、连接词、论述段与 DELF B1 模拟。</p></div>
+        <div class="card"><h3 class="mb-0">第 41–52 周 <span class="badge badge-b2">B2</span></h3><p class="small mb-0 zh">论述与灵活。时态配合、假设三型、书面语体、250 词论说文，词汇 5000。</p></div>
+      </div>
+    </section>
+
+    <!-- ============ 按日学习（点日期 → 当天内容逐条推进） ============ -->
+    <section class="section" id="daily">
+      <h2 data-i18n="learn.title">按日学习</h2>
+      <p class="zh" data-i18n="learn.lede">
+        下面 364 个格子对应一年里的每一天：点某一天打开当天的学习内容，一条一条推进知识点，
+        每条约 20–30 分钟。每条知识点都配了从真题风格改写的例题，答完立刻判对错；
+        答错会自动收进下面的错题本，供你日后重做。
+      </p>
+      <p class="muted small mb-2"><span class="badge badge-b1" id="learnToday" data-i18n="learn.today">今天</span></p>
+
+      <div class="daygrid-wrap">
+        <div id="dayGrid" class="daygrid" aria-label="按日学习网格"></div>
+      </div>
+
+      <div id="dayPanel" class="card mt-3 daypanel" aria-live="polite"></div>
+    </section>
+
+    <!-- ============ 错题本 ============ -->
+    <section class="section" id="wrongbook">
+      <div id="wrongBook" class="card"></div>
+    </section>
+
+    <!-- ============ 周网格 ============ -->
+    <section class="section" id="grid">
+      <h2 data-i18n="cal.grid.title">逐周清单</h2>
+      <p class="zh small" data-i18n="cal.grid.note">
+        绿色 = 已完成。数据只存在本机浏览器；清空缓存会丢失打卡记录，建议每 13 周截图存档。
+      </p>
+      <div class="week-grid" id="weekGrid">
+
+        <!-- ---------- 第一阶段 A1 ---------- -->
+        <div class="week" data-week="1" data-level="A1" data-title="语音入门：字母、音符与拼读规律">
+          <span class="wk-n">W01</span><span class="wk-t">语音入门：字母、音符与拼读规律</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-1" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>无语法新点。建立"语音优先"习惯：只学读音与拼写规则。</li>
+            <li><strong>词汇目标：</strong>50 词（打招呼、yes/no、礼貌用语、数字 0–20、星期与月份）。</li>
+            <li><strong>听：</strong>每天 15 分钟听字母表与数字，跟读至 1–20 听写全对。</li>
+            <li><strong>说：</strong>能把 bonjour / bonsoir / merci / au revoir / pardon 说得自然，自我介绍姓名与国籍。</li>
+            <li><strong>读：</strong>读 <a href="phonetics.html">发音页</a>第 1–4 节，掌握 26 个字母的法语读音与四种音符的功能。</li>
+            <li><strong>写：</strong>抄写并标音标 30 个高频词（bonjour, merci, français…）。</li>
+            <li><strong>里程碑：</strong>见到带 é è ê ç 的词能说出音符作用，能正确读出所有字母。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="2" data-level="A1" data-title="音素系统：元音、鼻化元音与联诵">
+          <span class="wk-n">W02</span><span class="wk-t">音素系统：元音、鼻化元音与联诵</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-2" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>省音（l'ami / j'aime）与联诵的三类规则，这是口语的"隐形语法"。</li>
+            <li><strong>词汇目标：</strong>70 词（颜色、常见物品、家庭成员称谓）。累计约 120。</li>
+            <li><strong>听：</strong>用 <a href="dialogue.html">对话页</a> 前 4 篇 A1 对话做三遍精听，标记每处联诵。</li>
+            <li><strong>说：</strong>影子跟读上面 4 篇对话各 3 遍，重点模仿语调与联诵。</li>
+            <li><strong>读：</strong><a href="phonetics.html">发音页</a>音素总表与元音、鼻化元音章节。</li>
+            <li><strong>写：</strong>为 40 个词标 IPA，凡记不住读音的词单独列一页"顽固词表"。</li>
+            <li><strong>里程碑：</strong>能读出 tu / tout / tie 的区别；能说出联诵必须、可选、禁止各 3 个场景。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="3" data-level="A1" data-title="名词的性与数、定冠词与不定冠词">
+          <span class="wk-n">W03</span><span class="wk-t">名词的性与数、定冠词与不定冠词</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-3" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>le/la/les、un/une/des；名词阴阳性的判断线索与复数规则 → <a href="grammar-a1a2.html#articles">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（家居物品、教室与办公用品），一律"冠词 + 名词"成对记。</li>
+            <li><strong>听：</strong>听 <a href="dialogue.html">对话页</a> A1 篇目，专门听 un/une/des 与 les 的读音差别。</li>
+            <li><strong>说：</strong>用 20 个新词造句：C'est un… / C'est une… / Ce sont des…</li>
+            <li><strong>读：</strong>语法页冠词与名词章节，做章末小测。</li>
+            <li><strong>写：</strong>写 10 句"这是我的…／这是几个…"，注意冠词与名词的性别一致。</li>
+            <li><strong>里程碑：</strong>看到生词能 70% 猜对阴阳性（依据词尾规律），复数变化全对。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="4" data-level="A1" data-title="主语人称代词与 être / avoir">
+          <span class="wk-n">W04</span><span class="wk-t">主语人称代词与 être / avoir</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-4" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>je/tu/il/elle/nous/vous/ils/elles；être 与 avoir 现在时全变位；tu 与 vous 的选择 → <a href="grammar-a1a2.html#present">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>70 词（国籍、职业、性格形容词的阳性形式）。</li>
+            <li><strong>听：</strong>自我介绍类音频，听写 10 句 Je suis… / J'ai…。</li>
+            <li><strong>说：</strong>60 秒自我介绍（姓名、国籍、职业、年龄、住址），录音并回听。</li>
+            <li><strong>读：</strong>语法页 être/avoir 变位表，抄写 3 遍至能默写。</li>
+            <li><strong>写：</strong>用 être 与 avoir 各写 8 句真实信息（年龄用 avoir！J'ai 25 ans）。</li>
+            <li><strong>里程碑：</strong>能不假思索地变位 être 与 avoir；自我介绍不说错 avoir + 年龄。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="5" data-level="A1" data-title="第一组动词 -er 现在时与否定">
+          <span class="wk-n">W05</span><span class="wk-t">第一组动词 -er 现在时与否定</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-5" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>-er 动词现在时词尾（-e -es -e -ons -ez -ent）与连读陷阱；否定 ne…pas → <a href="grammar-a1a2.html#negation">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（日常动作动词：parler, aimer, habiter, travailler, étudier, manger…）。</li>
+            <li><strong>听：</strong>听含否定的对话，标记 ne…pas 在口语中常省掉 ne 的现象（Je sais pas）。</li>
+            <li><strong>说：</strong>用 10 个 -er 动词造句，再逐句改否定，口头快速切换。</li>
+            <li><strong>读：</strong>语法页第一组动词与否定章节。</li>
+            <li><strong>写：</strong>写"我的一天"10 句，全用 -er 动词现在时。</li>
+            <li><strong>里程碑：</strong>-er 动词变位零错误；能听出并说出 ne…plus / ne…jamais / ne…rien。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="6" data-level="A1" data-title="形容词性数配合与位置">
+          <span class="wk-n">W06</span><span class="wk-t">形容词性数配合与位置</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-6" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>形容词与名词性数一致；多数形容词后置、BAGS（美丑年龄好坏大小）前置；特殊形式 beau/nouveau/vieux → <a href="grammar-a1a2.html#adjectifs">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（外貌、性格、颜色、大小形容词，同时记阴性形式）。</li>
+            <li><strong>听：</strong>听描述人物的音频，听写 10 个"形容词 + 名词"组合。</li>
+            <li><strong>说：</strong>描述 3 个人（家人/朋友/自己）各 4 句，注意形容词配合。</li>
+            <li><strong>读：</strong>语法页形容词章节与特殊形容词表。</li>
+            <li><strong>写：</strong>写两段人物描写，每段 6 句，圈出所有形容词与名词的性数对应。</li>
+            <li><strong>里程碑：</strong>不说错 une belle fille / un beau garçon / de beaux enfants。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="7" data-level="A1" data-title="疑问句三式与疑问词">
+          <span class="wk-n">W07</span><span class="wk-t">疑问句三式与疑问词</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-7" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>语调提问 / Est-ce que / 倒装；qui, que, quoi, où, quand, comment, pourquoi, combien → <a href="grammar-a1a2.html#interrogation">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>70 词（疑问词、时间与频率副词、日常场所）。</li>
+            <li><strong>听：</strong>听 <a href="dialogue.html">对话页</a> 问路与约时间篇，写下听到的疑问句。</li>
+            <li><strong>说：</strong>就每个疑问词各问 3 个问题并自答，练成条件反射。</li>
+            <li><strong>读：</strong>语法页疑问章节，区分口语（语调式）与正式（倒装）语域。</li>
+            <li><strong>写：</strong>为一段对话写 10 个问题（用三种句式各 3 个以上）。</li>
+            <li><strong>里程碑：</strong>能就陌生话题连续追问 5 轮不卡壳。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="8" data-level="A1" data-title="高频不规则动词与数字时间">
+          <span class="wk-n">W08</span><span class="wk-t">高频不规则动词与数字时间</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-8" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>aller, faire, prendre, venir, pouvoir, vouloir, devoir 现在时 → <a href="grammar-a1a2.html#irreguliers">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（数字 20–1000、序数词、时间表达、约会用语）。</li>
+            <li><strong>听：</strong>听数字与价格（60、70、80、90 的读法差异），做 20 组听写。</li>
+            <li><strong>说：</strong>说出现在时间、约定见面时间、说出三个价格。</li>
+            <li><strong>读：</strong>语法页不规则动词变位表。</li>
+            <li><strong>写：</strong>默写 7 个不规则动词现在时变位（限时 10 分钟）。</li>
+            <li><strong>里程碑：</strong>数字 1–100 听写全对；7 个不规则动词变位默写 ≥90%。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="9" data-level="A1" data-title="部分冠词、食物与点单场景">
+          <span class="wk-n">W09</span><span class="wk-t">部分冠词、食物与点单场景</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-9" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>部分冠词 du / de la / de l' / des 与否定中的 de；量词 un kilo de… → <a href="grammar-a1a2.html#partitif">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（食物、饮料、餐具、餐厅用语），这是我最有动力背的主题，趁机拉高数量。</li>
+            <li><strong>听：</strong>听餐厅点单对话，写出点单句型。</li>
+            <li><strong>说：</strong>角色扮演"两人在餐厅点菜"，从入座到买单走完整流程。</li>
+            <li><strong>读：</strong><a href="dialogue.html">对话页</a> A1 餐厅/食品购物篇。</li>
+            <li><strong>写：</strong>写一份购物清单（20 项，含数量）＋ 一段餐厅点的菜。</li>
+            <li><strong>里程碑：</strong>能无障碍完成一次点餐与超市购物对话。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="10" data-level="A1" data-title="主有形容词、指示形容词与家庭">
+          <span class="wk-n">W10</span><span class="wk-t">主有形容词、指示形容词与家庭</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-10" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>mon/ma/mes, ton/ta/tes, son/sa/ses, notre/nos…；ce/cette/ces → <a href="grammar-a1a2.html#possessifs">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（家庭关系、婚姻状况、居住描述）。</li>
+            <li><strong>听：</strong>听一段家庭介绍，画出家谱图。</li>
+            <li><strong>说：</strong>介绍家庭 3 分钟，包含成员、年龄、职业、住哪。</li>
+            <li><strong>读：</strong>语法页限定词章节，注意"主有形容词跟名词性别走，不跟所有者走"。</li>
+            <li><strong>写：</strong>写 12 句家庭介绍，每句含一个主有形容词或指示形容词。</li>
+            <li><strong>里程碑：</strong>不再混淆 son/sa 与"他的/她的"；家谱图能用 8 句讲清。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="11" data-level="A1" data-title="最近将来与最近过去、计划与刚发生">
+          <span class="wk-n">W11</span><span class="wk-t">最近将来与最近过去、计划与刚发生</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-11" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>aller + inf（最近将来）、venir de + inf（最近过去）、être en train de + inf（正在进行）。</li>
+            <li><strong>词汇目标：</strong>70 词（出行、日常事务、时间安排）。</li>
+            <li><strong>听：</strong>听日程安排对话，记录 5 个"将要"与 5 个"刚刚"。</li>
+            <li><strong>说：</strong>说这份周末计划（6 句将来）＋ 今天已做的事（6 句刚过去）。</li>
+            <li><strong>读：</strong>语法页相关时态小节的对比表。</li>
+            <li><strong>写：</strong>写一段"下周末计划"（80 词）。</li>
+            <li><strong>里程碑：</strong>三种结构能口头自由切换，不再用现在时硬说将来。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="12" data-level="A1" data-title="礼貌表达、日常请求与正式书信格式">
+          <span class="wk-n">W12</span><span class="wk-t">礼貌表达、日常请求与正式书信格式</span>
+          <span class="wk-lv"><span class="badge badge-a1">A1</span></span>
+        </div>
+        <div id="wk-12" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>je voudrais / pourriez-vous / excusez-moi 等礼貌结构；书信格式（Madame, Monsieur / Cordialement）。</li>
+            <li><strong>词汇目标：</strong>70 词（服务场景、办事用语、礼貌套话）。</li>
+            <li><strong>听：</strong>听 3 段服务场景对话（药店、邮局、银行），写出关键信息。</li>
+            <li><strong>说：</strong>模拟请求、道歉、拒绝、道谢各 3 句，语气要得体。</li>
+            <li><strong>读：</strong><a href="dialogue.html">对话页</a> A1 药店、地铁买票等篇。</li>
+            <li><strong>写：</strong>写一封 80 词邮件（向房东/学校询问信息），格式正确。</li>
+            <li><strong>里程碑：</strong>能写出一封合格的法语事务性短邮件，不出现格式错误。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="13" data-level="A1" data-title="阶段测：A1 全项模拟与复盘（词汇 600）" data-grammar="复习前 12 周全部语法点" data-vocab="600 词认词率 ≥85%">
+          <span class="wk-n">W13</span><span class="wk-t">阶段测：A1 全项模拟与复盘（词汇 600）</span>
+          <span class="wk-lv"><span class="badge badge-ok">里程碑</span></span>
+        </div>
+        <div id="wk-13" hidden>
+          <ul>
+            <li><strong>本周不学新内容</strong>，全部用于检验与补漏：这是全年四个"关卡周"的第一个。</li>
+            <li><strong>测试：</strong>用 <a href="exams.html">考试页</a> 的 A1/A2 级材料 + 自建卷：听力 20 题、阅读 15 题、写作 80 词、口语 2 分钟自述。</li>
+            <li><strong>词汇：</strong>用 <a href="vocab.html">词汇页</a> A1 筛选做自测，目标认词率 ≥85%（约 600 词）。</li>
+            <li><strong>语法：</strong>把前 12 周的 6 个语法点各做 10 题，错题单独建"错题本"。</li>
+            <li><strong>输出：</strong>录一段 2 分钟自述（我的一天 + 我的家庭 + 我的城市），回听标出 5 个问题。</li>
+            <li><strong>复盘：</strong>写下三个最弱项，作为第二阶段前两周的额外任务。</li>
+            <li><strong>里程碑：</strong>能就熟悉话题连续说 1 分钟不中断；能听懂慢速对话 80%。未达标→补 1 周再走。</li>
+          </ul>
+        </div>
+
+        <!-- ---------- 第二阶段 A2 ---------- -->
+        <div class="week" data-week="14" data-level="A2" data-title="复合过去时（一）：avoir 助动词与过去分词">
+          <span class="wk-n">W14</span><span class="wk-t">复合过去时（一）：avoir 助动词与过去分词</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-14" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>passé composé 构成；-er→é, -ir→i, -re→u 分词规律与不规则分词表 → <a href="grammar-a1a2.html#passe-compose">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（日常活动、周末活动、城市与交通）。累计约 690。</li>
+            <li><strong>听：</strong>听一段周末讲述，列出所有过去分词动词原形。</li>
+            <li><strong>说：</strong>讲述"上个周末"2 分钟，全部使用复合过去时。</li>
+            <li><strong>读：</strong>语法页复合过去时（avoir）章节与不规则分词表。</li>
+            <li><strong>写：</strong>写 120 词记叙：上周做过的事（注意时间顺序连接词 d'abord, ensuite, puis, enfin）。</li>
+            <li><strong>里程碑：</strong>30 个常用不规则过去分词能默写；能连贯叙述一段经历。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="15" data-level="A2" data-title="复合过去时（二）：être 助动词与过去分词配合">
+          <span class="wk-n">W15</span><span class="wk-t">复合过去时（二）：être 助动词与过去分词配合</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-15" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>DR MRS VANDERTRAMP 动词 + être，分词与主语性数配合；代词式动词的过去时 → <a href="grammar-a1a2.html#etre-passe">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（位移动词、出行、旅行票据、住宿）。</li>
+            <li><strong>听：</strong>听一段旅行经历，专门标记 aller/venir/partir/arriver 的配合。</li>
+            <li><strong>说：</strong>讲一次真实旅行（出发、到达、做了什么、感受）3 分钟。</li>
+            <li><strong>读：</strong>语法页 être 助动词章节 + 配合规则表。</li>
+            <li><strong>写：</strong>写 150 词旅行记叙，所有 être 助动词句必须配合正确。</li>
+            <li><strong>里程碑：</strong>助动词选择（avoir/être）判断 100% 正确。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="16" data-level="A2" data-title="未完成过去时：描写与习惯">
+          <span class="wk-n">W16</span><span class="wk-t">未完成过去时：描写与习惯</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-16" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>imparfait 构成（nous 现在时去掉 -ons + 词尾）；用于背景、习惯、状态、描写 → <a href="grammar-a1a2.html#imparfait">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（童年、回忆、天气、情绪）。</li>
+            <li><strong>听：</strong>听一段童年回忆，统计 imparfait 与 passé composé 各出现几次。</li>
+            <li><strong>说：</strong>讲"我小时候"3 分钟，交替使用两种过去时。</li>
+            <li><strong>读：</strong>语法页 imparfait 章节与用法清单。</li>
+            <li><strong>写：</strong>写 120 词童年回忆（含场景描写 + 一次具体事件）。</li>
+            <li><strong>里程碑：</strong>imparfait 变位（含 être 的 ét- 词干）零错误。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="17" data-level="A2" data-title="两种过去时的分工与叙事骨架">
+          <span class="wk-n">W17</span><span class="wk-t">两种过去时的分工与叙事骨架</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-17" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>复合过去时＝事件推进（发生了什么），未完成过去时＝背景与状态（当时是什么样）；配合 quand / lorsque / pendant que → <a href="grammar-b1b2.html#temps-passe">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（叙事连接词、时间表达、事件与事故类词汇）。</li>
+            <li><strong>听：</strong>听 2 段"发生意外"的故事，画出事件线与背景线。</li>
+            <li><strong>说：</strong>看图讲一个完整故事（起因-背景-事件-结果），3 分钟。</li>
+            <li><strong>读：</strong><a href="dialogue.html">对话页</a> A2 讲述过去篇 + 语法页对比章节。</li>
+            <li><strong>写：</strong>写 150 词记叙文，需同时出现至少 6 个 imparfait 与 6 个 passé composé。</li>
+            <li><strong>里程碑：</strong>叙事时两种过去时选择正确率 ≥85%——这是 B2 写作的地基。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="18" data-level="A2" data-title="愈过去时与时间先后表达">
+          <span class="wk-n">W18</span><span class="wk-t">愈过去时与时间先后表达</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-18" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>plus-que-parfait（avoir/être 未完成过去时 + 分词）；avant de / après avoir + 分词 / dès que。</li>
+            <li><strong>词汇目标：</strong>80 词（顺序与频率副词、因果初步连接词）。</li>
+            <li><strong>听：</strong>听一段含"更早发生"的讲述，标出时间层次。</li>
+            <li><strong>说：</strong>解释一件事的来龙去脉（先发生什么、后来怎样）3 分钟。</li>
+            <li><strong>读：</strong>语法页愈过去时章节 + 短篇故事一篇（400 词）。</li>
+            <li><strong>写：</strong>改写练习：把 10 个句子改成愈过去时并调整时间连接。</li>
+            <li><strong>里程碑：</strong>能在叙述中正确表达三层时间关系。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="19" data-level="A2" data-title="简单将来时与计划表达">
+          <span class="wk-n">W19</span><span class="wk-t">简单将来时与计划表达</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-19" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>futur simple 构成与不规则词干（être→ser-, avoir→aur-, aller→ir-, faire→fer-, venir→viendr-…）；与最近将来的语体差别。</li>
+            <li><strong>词汇目标：</strong>90 词（职业、学习规划、目标与愿望）。</li>
+            <li><strong>听：</strong>听访谈谈"五年后的打算"，摘录 8 句将来时。</li>
+            <li><strong>说：</strong>说 3 年计划（学习、工作、旅行），5 分钟。</li>
+            <li><strong>读：</strong>语法页将来时章节 + 时间状语（dans, d'ici, à partir de）。</li>
+            <li><strong>写：</strong>写 150 词"我的一年法语计划"（用上 8 个不规则将来时）。</li>
+            <li><strong>里程碑：</strong>12 个不规则将来时词干默写全对。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="20" data-level="A2" data-title="简单条件式：礼貌、愿望与假设入门">
+          <span class="wk-n">W20</span><span class="wk-t">简单条件式：礼貌、愿望与假设入门</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-20" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>conditionnel présent（将来时词干 + imparfait 词尾）；用于礼貌请求、愿望、不确定信息；si + imparfait, conditionnel（假设第一型）→ <a href="grammar-b1b2.html#conditionnel">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（健康、身体、看病与保险）。</li>
+            <li><strong>听：</strong>听客服/医生对话，标记所有礼貌条件式。</li>
+            <li><strong>说：</strong>模拟看病：描述症状、医生建议、请假请求，4 分钟。</li>
+            <li><strong>读：</strong>语法页条件式章节 + <a href="dialogue.html">对话页</a> A2 看病篇。</li>
+            <li><strong>写：</strong>写一封 100 词礼貌请假邮件（用 3 个条件式）。</li>
+            <li><strong>里程碑：</strong>能把 10 个直陈句改写为礼貌条件式。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="21" data-level="A2" data-title="间接宾语代词与副代词 y / en">
+          <span class="wk-n">W21</span><span class="wk-t">间接宾语代词与副代词 y / en</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-21" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>lui/leur 与 le/la/les；y 代替地点与 à + 事物；en 代替 de + 事物与数量 → <a href="grammar-a1a2.html#pronoms">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（服务场景、办事流程、电话用语）。</li>
+            <li><strong>听：</strong>听电话留言，写出被代词替换的原始表达。</li>
+            <li><strong>说：</strong>把 15 句完整句口头替换成代词句（我给他打电话→我给他打）。</li>
+            <li><strong>读：</strong>语法页代词章节，重点是"代词放动词前"的语序。</li>
+            <li><strong>写：</strong>做一个改写表：左列原句、右列代词替换句，各 15 例。</li>
+            <li><strong>里程碑：</strong>能不加思考地把重复名词换成 y/en/le/lui。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="22" data-level="A2" data-title="代词顺序、命令式与代词连用">
+          <span class="wk-n">W22</span><span class="wk-t">代词顺序、命令式与代词连用</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-22" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>双代词顺序表（me/te/se/nous/vous → le/la/les → lui/leur → y → en）；肯定命令式代词后置并变重读形（Donne-le-moi !）→ <a href="grammar-a1a2.html#ordre-pronoms">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>80 词（购物、退换货、投诉与服务评价）。</li>
+            <li><strong>听：</strong>听退货/投诉对话，写出含双代词的句子。</li>
+            <li><strong>说：</strong>角色扮演退货：陈述问题、要求退款、表达不满但礼貌。</li>
+            <li><strong>读：</strong>语法页命令式与代词顺序章节。</li>
+            <li><strong>写：</strong>写一份 120 词投诉信（网购商品有问题）。</li>
+            <li><strong>里程碑：</strong>双代词顺序 10 题全对；投诉信语气得体。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="23" data-level="A2" data-title="工作与求职：词汇、简历与动机信">
+          <span class="wk-n">W23</span><span class="wk-t">工作与求职：词汇、简历与动机信</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-23" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>复习时态在简历/动机信中的混用；表达经验与能力（être capable de, savoir faire, avoir de l'expérience en）。</li>
+            <li><strong>词汇目标：</strong>100 词（职业、技能、学历、招聘与合同词汇）。</li>
+            <li><strong>听：</strong>听一段招聘广告与一次简短面试，记录关键信息。</li>
+            <li><strong>说：</strong>模拟面试前 5 分钟：自我介绍 + 为什么想来 + 有什么经验。</li>
+            <li><strong>读：</strong>读 2 篇法语招聘广告，画出职位要求。</li>
+            <li><strong>写：</strong>写法语简历一页 + 100 词动机信初稿（第 33 周再改写成 B1 版）。</li>
+            <li><strong>里程碑：</strong>能用 10 句说清职业经历与技能。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="24" data-level="A2" data-title="比较级、最高级与数量表达">
+          <span class="wk-n">W24</span><span class="wk-t">比较级、最高级与数量表达</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-24" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>plus/moins/aussi…que；bon→meilleur, bien→mieux；le plus/le moins；数量副词 très/trop/assez/beaucoup/peu → <a href="grammar-a1a2.html#comparaison">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>90 词（购物消费、价格与质量评价、广告用语）。</li>
+            <li><strong>听：</strong>听产品对比类音频，记录比较结构。</li>
+            <li><strong>说：</strong>对比两个城市/两种手机/两份工作，各 4 句。</li>
+            <li><strong>读：</strong>语法页比较级章节与特殊形式表。</li>
+            <li><strong>写：</strong>写 150 词对比短文（两种方案选一个并说明理由）。</li>
+            <li><strong>里程碑：</strong>不混淆 meilleur/mieux；能写出一段有理有据的对比。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="25" data-level="A2" data-title="阅读与听力冲刺：400 词短文 + 泛听泛读">
+          <span class="wk-n">W25</span><span class="wk-t">阅读与听力冲刺：400 词短文 + 泛听泛读</span>
+          <span class="wk-lv"><span class="badge badge-a2">A2</span></span>
+        </div>
+        <div id="wk-25" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>不学新点，专攻"语法识别速度"：读到句子立刻指出时态与代词。</li>
+            <li><strong>词汇目标：</strong>100 词（社会、媒体、科技等泛主题高频词）。</li>
+            <li><strong>听：</strong>每天 30 分钟泛听（新闻简讯、播客），只抓主旨，不查词。</li>
+            <li><strong>说：</strong>用一段短文做"复述 + 我的看法"（1 分钟复述 + 1 分钟观点）。</li>
+            <li><strong>读：</strong>精读 <a href="exams.html">考试页</a> 4 篇 B2 长文中的 2 篇（限时 15 分钟/篇）。</li>
+            <li><strong>写：</strong>写 150 词读后感（概括 + 评价 + 个人经历联系）。</li>
+            <li><strong>里程碑：</strong>400 词短文 10 分钟读完并能写出 100 词摘要。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="26" data-level="A2" data-title="阶段测：DELF A2 模拟与复盘（词汇 1200）" data-grammar="过去时体系专项" data-vocab="1200 词认词率 ≥85%">
+          <span class="wk-n">W26</span><span class="wk-t">阶段测：DELF A2 模拟与复盘（词汇 1200）</span>
+          <span class="wk-lv"><span class="badge badge-ok">里程碑</span></span>
+        </div>
+        <div id="wk-26" hidden>
+          <ul>
+            <li><strong>本周只做检测与补漏。</strong></li>
+            <li><strong>测试：</strong>完整做一套 A2 模拟（听力、阅读、写作 120 词、口语 5 分钟），限时完成。</li>
+            <li><strong>词汇：</strong><a href="vocab.html">词汇页</a> A1+A2 筛选自测，目标认词率 ≥85%（约 1200 词）。</li>
+            <li><strong>语法：</strong>过去时体系专项 30 题（PC/IMP/PQP 选择），正确率目标 ≥85%。</li>
+            <li><strong>输出：</strong>写 150 词记叙 + 录 3 分钟自述，比对第 13 周录音，记录进步点。</li>
+            <li><strong>复盘：</strong>把错题按"时态 / 代词 / 词汇 / 语序"分类，每类写 3 条对策。</li>
+            <li><strong>里程碑：</strong>能完整叙述经历并处理租房、看病、退货场景；未达标→补 1–2 周再进入 B1 段。</li>
+          </ul>
+        </div>
+
+        <!-- ---------- 第三阶段 B1 ---------- -->
+        <div class="week" data-week="27" data-level="B1" data-title="B1 起点：抽象话题词汇与关系从句">
+          <span class="wk-n">W27</span><span class="wk-t">B1 起点：抽象话题词汇与关系从句</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-27" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>关系从句 qui / que / où 的复现与扩展；把两个短句合并成关系从句 → <a href="grammar-b1b2.html#relatifs">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（社会关系、性格、教养与礼貌）。累计约 1310。</li>
+            <li><strong>听：</strong>听一档人物访谈，记录 10 个关系从句。</li>
+            <li><strong>说：</strong>描述一个影响过我的人，3 分钟，至少用 5 个关系从句。</li>
+            <li><strong>读：</strong>读一篇 600 词人物报道，画出所有关系代词。</li>
+            <li><strong>写：</strong>写 180 词人物描写（含 6 个关系从句）。</li>
+            <li><strong>里程碑：</strong>不再写出"两个短句硬拼"的幼稚句，能自然用关系从句连接。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="28" data-level="B1" data-title="教育与学习：表达观点与间接引语入门">
+          <span class="wk-n">W28</span><span class="wk-t">教育与学习：表达观点与间接引语入门</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-28" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>直陈式转间接引语（现在时主句）；常见转述动词 dire, déclarer, affirmer, expliquer, demander → <a href="grammar-b1b2.html#discours-indirect">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（教育制度、学习方式、考试与评价）。</li>
+            <li><strong>听：</strong>听一段访谈，用自己的话转述 8 句。</li>
+            <li><strong>说：</strong>转述一段新闻（谁说了什么），2 分钟。</li>
+            <li><strong>读：</strong>读一篇 600 词教育话题文章，标出作者论点与论据。</li>
+            <li><strong>写：</strong>写 180 词文章摘要 + 转述句 8 个。</li>
+            <li><strong>里程碑：</strong>能准确区分"我说"与"他说"，转述不丢信息。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="29" data-level="B1" data-title="虚拟式（一）：形式与意志、情感、必要">
+          <span class="wk-n">W29</span><span class="wk-t">虚拟式（一）：形式与意志、情感、必要</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-29" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>subjonctif présent 变位规则（含 être/avoir/aller/faire/pouvoir/savoir/vouloir 不规则）；触发词：vouloir que, il faut que, je suis content que → <a href="grammar-b1b2.html#subjonctif">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（情感、态度、愿望），一并记"que + 虚拟式"的动词。</li>
+            <li><strong>听：</strong>听含虚拟式的对话，标出每个虚拟式动词的引导词。</li>
+            <li><strong>说：</strong>用 il faut que / je veux que / je doute que 各说 4 句真实需求。</li>
+            <li><strong>读：</strong>语法页虚拟式章节 + 常用引导短语表。</li>
+            <li><strong>写：</strong>写 15 句"我希望/需要/害怕……"的虚拟式句。</li>
+            <li><strong>里程碑：</strong>虚拟式现在时 8 个不规则动词变位默写全对。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="30" data-level="B1" data-title="环境与生态：观点陈述与论述段写作">
+          <span class="wk-n">W30</span><span class="wk-t">环境与生态：观点陈述与论述段写作</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-30" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>原因与目的连接词（parce que, puisque, comme, grâce à, à cause de, pour que, afin que）。</li>
+            <li><strong>词汇目标：</strong>110 词（环境、能源、气候、垃圾与回收）。</li>
+            <li><strong>听：</strong>听一段环保政策讨论，记录正反双方各 3 个理由。</li>
+            <li><strong>说：</strong>就"个人能否影响气候变化"陈述 3 分钟（观点 + 2 理由 + 1 例）。</li>
+            <li><strong>读：</strong>读 2 篇 600 词对立观点的环保文章。</li>
+            <li><strong>写：</strong>写 200 词论述段（引言 1 句、论点 2 段、结论 1 句）。</li>
+            <li><strong>里程碑：</strong>能写出有观点、有支撑、有结论的三段式短文。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="31" data-level="B1" data-title="被动语态与媒体信息处理">
+          <span class="wk-n">W31</span><span class="wk-t">被动语态与媒体信息处理</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-31" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>voix passive 构成、par 与 de 的选择、代动词被动（se vendre）、用 on 替代被动 → <a href="grammar-b1b2.html#passif">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（媒体、新闻、舆论、信息真伪）。</li>
+            <li><strong>听：</strong>听一段新闻报道，把被动句换成主动句。</li>
+            <li><strong>说：</strong>概括一条新闻并评价其信息来源可靠性（3 分钟）。</li>
+            <li><strong>读：</strong>读 3 篇不同立场的同一事件报道，做立场对比表。</li>
+            <li><strong>写：</strong>写 200 词分析：同一事件三家媒体怎么描述。</li>
+            <li><strong>里程碑：</strong>能识别并主动使用被动语态，理解新闻"措辞即立场"。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="32" data-level="B1" data-title="分词式与科技话题">
+          <span class="wk-n">W32</span><span class="wk-t">分词式与科技话题</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-32" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>现在分词（-ant）、副动词 en + -ant、复合过去分词（ayant fait / étant allé）→ <a href="grammar-b1b2.html#participe">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（科技、互联网、人工智能、数据与隐私）。累计约 1800。</li>
+            <li><strong>听：</strong>听一段科技播客，用分词式改写其中 8 句。</li>
+            <li><strong>说：</strong>讲"我最常用的三个 App 及原因"，3 分钟。</li>
+            <li><strong>读：</strong>读一篇 700 词科技评论，标出分词结构。</li>
+            <li><strong>写：</strong>写 200 词短文：技术让生活更好还是更焦虑（用 4 个分词结构）。</li>
+            <li><strong>里程碑：</strong>能用分词式压缩句子，书面语不再全是"qui/que 堆叠"。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="33" data-level="B1" data-title="阶段测：DELF B1 模拟（词汇 2000）" data-grammar="虚拟式 / 被动 / 关系代词 / 时态配合专项" data-vocab="2000 词认词率 ≥85%">
+          <span class="wk-n">W33</span><span class="wk-t">阶段测：DELF B1 模拟（词汇 2000）</span>
+          <span class="wk-lv"><span class="badge badge-ok">里程碑</span></span>
+        </div>
+        <div id="wk-33" hidden>
+          <ul>
+            <li><strong>全真模拟：</strong>按 <a href="exams.html">考试页</a> 的考试结构限时做一套 B1 级模拟（听力 25 分钟 / 阅读 45 分钟 / 写作 45 分钟 / 口语 15 分钟）。</li>
+            <li><strong>词汇：</strong><a href="vocab.html">词汇页</a> A1–B1 筛选自测，目标 2000 词，认词率 ≥85%。</li>
+            <li><strong>语法：</strong>虚拟式 + 被动 + 关系代词 + 时态配合，专项 40 题，正确率 ≥80%。</li>
+            <li><strong>写作：</strong>写 200 词论说文，请人（或 AI）按"任务完成度/连贯/词汇/语法/拼写"五项打分。</li>
+            <li><strong>口语：</strong>录 5 分钟陈述 + 自问自答式辩论。</li>
+            <li><strong>复盘：</strong>更新错题本；把动机信改写成 B1 版本存入作品集。</li>
+            <li><strong>里程碑：</strong>B1 模拟 ≥60%；能就争议话题给出观点+2 理由+1 反例。未达标→补 2 周。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="34" data-level="B1" data-title="逻辑连接词体系（原因/结果/对立/让步）">
+          <span class="wk-n">W34</span><span class="wk-t">逻辑连接词体系（原因/结果/对立/让步）</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-34" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>donc, c'est pourquoi, par conséquent, cependant, pourtant, bien que + 虚拟式, malgré + 名词, certes… mais → <a href="grammar-b1b2.html#connecteurs">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（抽象概念、论证用语、程度与保留）。</li>
+            <li><strong>听：</strong>听辩论片段，标记每个连接词与其逻辑作用。</li>
+            <li><strong>说：</strong>用"certes… mais…"结构就任一话题说 3 轮让步-反驳。</li>
+            <li><strong>读：</strong>读一篇 800 词社论，画出论证结构图（论点-论据-让步-结论）。</li>
+            <li><strong>写：</strong>写 200 词带让步段的论述（必须出现 pourtant / bien que / certes…mais）。</li>
+            <li><strong>里程碑：</strong>论证不再"一条线到底"，能处理反方观点。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="35" data-level="B1" data-title="条件式与假设三型">
+          <span class="wk-n">W35</span><span class="wk-t">条件式与假设三型</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-35" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>si + présent → présent/futur（现实）、si + imparfait → conditionnel（假设）、si + plus-que-parfait → conditionnel passé（反事实）→ <a href="grammar-b1b2.html#hypothese">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>110 词（社会议题、政策、公共讨论）。</li>
+            <li><strong>听：</strong>听访谈中的假设句，判断属于哪一型。</li>
+            <li><strong>说：</strong>就"如果我有一年空闲时间"做三种时态各 3 句的连锁表达。</li>
+            <li><strong>读：</strong>语法页假设三型对比表 + si 的替代结构（au cas où, à condition que）。</li>
+            <li><strong>写：</strong>写 200 词"如果……会怎样"的推想文。</li>
+            <li><strong>里程碑：</strong>三型假设时态搭配 20 题全对。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="36" data-level="B1" data-title="工作与职业规划：面试与职场沟通">
+          <span class="wk-n">W36</span><span class="wk-t">工作与职业规划：面试与职场沟通</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-36" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>礼貌与委婉（条件式、si vous le permettez）；表达同意/保留/协商（je suis d'accord, je nuancerais, disons que…）。</li>
+            <li><strong>词汇目标：</strong>120 词（职场、会议、合同、工资与谈判）。累计约 2200。</li>
+            <li><strong>听：</strong>听一段工作会议音频，记录任务分工与决策。</li>
+            <li><strong>说：</strong>完整模拟面试 10 分钟（自我介绍、经历、优势劣势、提问环节）。</li>
+            <li><strong>读：</strong>读 2 篇 700 词职场话题文章（远程办公、工作生活平衡）。</li>
+            <li><strong>写：</strong>写 250 词动机信 B1 版 + 一份会议纪要。</li>
+            <li><strong>里程碑：</strong>能在正式场合用礼貌而坚定的法语表达立场。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="37" data-level="B1" data-title="社会议题与观点辩护">
+          <span class="wk-n">W37</span><span class="wk-t">社会议题与观点辩护</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-37" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>虚拟式在判断与怀疑中的使用（il est normal que, je ne pense pas que…）；ne explétif 初识。</li>
+            <li><strong>词汇目标：</strong>120 词（社会不平等、移民、教育公平、健康与社会保障）。</li>
+            <li><strong>听：</strong>听一场圆桌讨论，整理三位嘉宾的立场。</li>
+            <li><strong>说：</strong>随机抽一个社会议题，30 秒准备后陈述 3 分钟并自辩 2 分钟。</li>
+            <li><strong>读：</strong>读 2 篇 800 词对立立场文章。</li>
+            <li><strong>写：</strong>写 250 词"立场 + 论证 + 让步 + 结论"四段文。</li>
+            <li><strong>里程碑：</strong>能在大纲之外即席补论据，不靠背稿。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="38" data-level="B1" data-title="阅读长文与听力笔记法">
+          <span class="wk-n">W38</span><span class="wk-t">阅读长文与听力笔记法</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-38" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>不学新点。专练"长句解构"：把 25 词以上长句拆成主干 + 修饰成分。</li>
+            <li><strong>词汇目标：</strong>120 词（从本周精读材料中自建词表，而不是背通用表）。</li>
+            <li><strong>听：</strong>用 <a href="exams.html">考试页</a> 听力速记法，做 3 段 2 分钟音频的笔记复述。</li>
+            <li><strong>说：</strong>看着自己的听力笔记复述内容，不看原文，5 分钟。</li>
+            <li><strong>读：</strong>限时精读 3 篇 800–1000 词文章（10 分钟/篇），做主旨题与细节题。</li>
+            <li><strong>写：</strong>写 250 词摘要（不许照抄原句，全部改写）。</li>
+            <li><strong>里程碑：</strong>1000 词文章 12 分钟读完，主旨题 90% 正确。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="39" data-level="B1" data-title="写作攻坚：200–250 词论述与正式信函">
+          <span class="wk-n">W39</span><span class="wk-t">写作攻坚：200–250 词论述与正式信函</span>
+          <span class="wk-lv"><span class="badge badge-b1">B1</span></span>
+        </div>
+        <div id="wk-39" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>书面语特征：名词化、被动、分词式、无人称结构（il semble que, on constate que）。</li>
+            <li><strong>词汇目标：</strong>120 词（写作高频动词与抽象名词）。累计约 2500。</li>
+            <li><strong>听：</strong>不安排泛听，改为朗读自己的文章并录音自检。</li>
+            <li><strong>说：</strong>把写的文章讲出来（3 分钟脱稿陈述）。</li>
+            <li><strong>读：</strong>研读 <a href="exams.html">考试页</a> 三档范文（13/17/22 分），逐段标注差别。</li>
+            <li><strong>写：</strong>写 2 篇完整 250 词文章（一篇立场论述、一封正式信函），各改两稿。</li>
+            <li><strong>里程碑：</strong>写作过程从"想到什么写什么"变成"先列提纲再写"。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="40" data-level="B1" data-title="B1 出口测：全项模拟与 B2 过渡（词汇 2500）" data-grammar="全年语法点掌握度自评，低于 3 分排进第 41–46 周" data-vocab="2500 词，主动可调用 ≥1200">
+          <span class="wk-n">W40</span><span class="wk-t">B1 出口测：全项模拟与 B2 过渡（词汇 2500）</span>
+          <span class="wk-lv"><span class="badge badge-ok">里程碑</span></span>
+        </div>
+        <div id="wk-40" hidden>
+          <ul>
+            <li><strong>全项模拟：</strong>B1 全套限时 + 用 B2 模拟卷试做一套（允许低分，重在找出差距）。</li>
+            <li><strong>词汇：</strong>目标 2500 词，认词率 ≥85%，主动可调用词 ≥1200。</li>
+            <li><strong>语法：</strong>把全年语法点做一张"掌握度自评表"（0–5 分），低于 3 分的排进第 41–46 周补强。</li>
+            <li><strong>输出：</strong>写 250 词文章 + 录 5 分钟陈述，与第 26 周对比，量化进步（词数、错误数、流利度）。</li>
+            <li><strong>复盘：</strong>确认三件事：能否听懂正常语速 70%、能否读懂报刊长文、能否写出结构完整的论述。<strong>三项都过才进入 B2 段</strong>。</li>
+            <li><strong>里程碑：</strong>B1 出口全部达标；否则优先补听读，补足再进第 41 周。</li>
+          </ul>
+        </div>
+
+        <!-- ---------- 第四阶段 B2 ---------- -->
+        <div class="week" data-week="41" data-level="B2" data-title="时态配合与复杂关系从句">
+          <span class="wk-n">W41</span><span class="wk-t">时态配合与复杂关系从句</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-41" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>concordance des temps（主句过去时→从句未完成过去时/条件式）；dont 与 lequel 系列（auquel, duquel, pour lequel）→ <a href="grammar-b1b2.html#relatifs-composes">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>130 词（政治、法律与公共生活）。累计约 2630。</li>
+            <li><strong>听：</strong>听一段长访谈，标记所有"过去时主句 + 从属句"结构。</li>
+            <li><strong>说：</strong>用 dont / auquel / ce dont 各造 4 句，就真实信息造句。</li>
+            <li><strong>读：</strong>读一篇 1000 词政治评论，画出所有代词与从句关系。</li>
+            <li><strong>写：</strong>写 250 词评论（至少 6 个关系从句，2 个 dont）。</li>
+            <li><strong>里程碑：</strong>dont 与 duquel/de qui 的选择不再靠猜。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="42" data-level="B2" data-title="B2 论述入门：立场文结构与论点库">
+          <span class="wk-n">W42</span><span class="wk-t">B2 论述入门：立场文结构与论点库</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-42" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>无人称与客观化表达（il est indéniable que, force est de constater que, on peut soutenir que）。</li>
+            <li><strong>词汇目标：</strong>130 词（论证词汇、经济与金融基础词）。</li>
+            <li><strong>听：</strong>听 2 场辩论，为每场建一个"论点-论据-例证"三列表。</li>
+            <li><strong>说：</strong>任选议题做"正方 3 分钟 / 反方 3 分钟"双向陈述。</li>
+            <li><strong>读：</strong>研读 <a href="exams.html">考试页</a> 写作模板与 50 个高分句式。</li>
+            <li><strong>写：</strong>写 300 词立场文（引言 + 2 论点 + 反方段 + 结论）。</li>
+            <li><strong>里程碑：</strong>写作可在 60 分钟内完成 300 词并自查结构。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="43" data-level="B2" data-title="虚拟式过去时与过去假设">
+          <span class="wk-n">W43</span><span class="wk-t">虚拟式过去时与过去假设</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-43" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>subjonctif passé（que j'aie fait, que je sois allé）；用于表达对过去的情绪、遗憾、判断：je regrette que tu sois parti。</li>
+            <li><strong>词汇目标：</strong>130 词（情感深度表达、遗憾与评价）。</li>
+            <li><strong>听：</strong>听访谈中的遗憾与评价句，判断虚拟式的时态。</li>
+            <li><strong>说：</strong>就"如果能重来"做 5 分钟表达（混合虚拟式过去时与条件式过去时）。</li>
+            <li><strong>读：</strong>语法页虚拟式过去时章节与现在时对比表。</li>
+            <li><strong>写：</strong>写 250 词反思文（含 4 个 subjonctif passé）。</li>
+            <li><strong>里程碑：</strong>虚拟式现在时/过去时在情绪句中的选择正确率 ≥90%。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="44" data-level="B2" data-title="环境、政治与法律长文与辩论">
+          <span class="wk-n">W44</span><span class="wk-t">环境、政治与法律长文与辩论</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-44" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>让步与保留的高级结构：quoi que, où que, quel que soit, si… que + 虚拟式。</li>
+            <li><strong>词汇目标：</strong>130 词（国际关系、公民社会、司法程序）。</li>
+            <li><strong>听：</strong>听一场正式辩论，记录每位发言人的核心主张与反驳点。</li>
+            <li><strong>说：</strong>模拟辩论：抽签决定正反方，各陈述 4 分钟 + 交叉质问 3 分钟。</li>
+            <li><strong>读：</strong>读 2 篇 1200 词长文（气候政策 / 法律议题），做笔记。</li>
+            <li><strong>写：</strong>写 300 词社论（立场鲜明，含 2 处让步）。</li>
+            <li><strong>里程碑：</strong>能在压力下即席组织反方论点并礼貌反驳。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="45" data-level="B2" data-title="条件式过去时与三种假设的高级用法">
+          <span class="wk-n">W45</span><span class="wk-t">条件式过去时与三种假设的高级用法</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-45" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>conditionnel passé 两式（j'aurais fait / j'eusse fait 识别）；混合假设（si + PQP, conditionnel présent；si + imparfait, conditionnel passé）；reproche 与 regret 表达。</li>
+            <li><strong>词汇目标：</strong>130 词（经济、商业、风险与决策）。累计约 3300。</li>
+            <li><strong>听：</strong>听辩论中的反事实论证（"如果当年那样做"）。</li>
+            <li><strong>说：</strong>就一个历史或政策决策做 4 分钟反事实分析。</li>
+            <li><strong>读：</strong>语法页假设三型 + 条件式过去时章节。</li>
+            <li><strong>写：</strong>写 300 词"假如……今天会怎样"分析文。</li>
+            <li><strong>里程碑：</strong>混合假设六种组合不混淆。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="46" data-level="B2" data-title="写作攻坚：250 词论说文与正式信函">
+          <span class="wk-n">W46</span><span class="wk-t">写作攻坚：250 词论说文与正式信函</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-46" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>书面语体全套：名词化、无人称、分词从句、连接词多样化（避免 donc/puis 反复）。</li>
+            <li><strong>词汇目标：</strong>130 词（文化、艺术、媒体批评）。</li>
+            <li><strong>听：</strong>朗读并回听自己文章，定位"能读但不地道"的句子。</li>
+            <li><strong>说：</strong>把文章脱稿讲 4 分钟。</li>
+            <li><strong>读：</strong>对比自己的文章与 <a href="exams.html">22 分范文</a>，列出 10 处可替换表达。</li>
+            <li><strong>写：</strong>按考试时间 60 分钟完成 3 篇文章（2 论述 + 1 正式信函），全部限时。</li>
+            <li><strong>里程碑：</strong>限时条件下写作质量不下降。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="47" data-level="B2" data-title="被动、使役与名词化：书面语体进阶">
+          <span class="wk-n">W47</span><span class="wk-t">被动、使役与名词化：书面语体进阶</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-47" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>faire/laisser/voir + inf 使役结构；名词化（décider→la décision, augmenter→l'augmentation）与"动词句 ↔ 名词句"互换 → <a href="grammar-b1b2.html#nominalisation">语法页</a>。</li>
+            <li><strong>词汇目标：</strong>130 词（抽象名词后缀 -tion/-ment/-ité/-ance）。</li>
+            <li><strong>听：</strong>听正式演讲，把名词化结构还原成动词句。</li>
+            <li><strong>说：</strong>同一内容说两遍：一遍口语化、一遍书面语化。</li>
+            <li><strong>读：</strong>读一篇 1200 词官方报告或学术摘要，标出所有名词化结构。</li>
+            <li><strong>写：</strong>把 15 个口语句改写为书面语，再反转一次。</li>
+            <li><strong>里程碑：</strong>文章语域统一，不再口语书面混杂。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="48" data-level="B2" data-title="文化、媒体与长篇听力">
+          <span class="wk-n">W48</span><span class="wk-t">文化、媒体与长篇听力</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-48" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>不学新点。巩固：把所有已学结构做成"一张 A4 速查表"（时态、虚拟式触发词、连接词、代词）。</li>
+            <li><strong>词汇目标：</strong>130 词（文学、电影、音乐评论用语与审美表达）。累计约 3500。</li>
+            <li><strong>听：</strong>每天 45 分钟长篇音频（纪录片、访谈、播客），要求听懂 80% 主旨与要点。</li>
+            <li><strong>说：</strong>就一部电影/一本书做 5 分钟推荐式陈述。</li>
+            <li><strong>读：</strong>读一篇 1500 词文化评论。</li>
+            <li><strong>写：</strong>写 300 词文化评论（含评价与论据）。</li>
+            <li><strong>里程碑：</strong>无字幕看懂访谈类视频 70% 以上。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="49" data-level="B2" data-title="口语攻坚：正式陈述与辩论表达">
+          <span class="wk-n">W49</span><span class="wk-t">口语攻坚：正式陈述与辩论表达</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-49" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>口语衔接技巧：争取时间（disons que…, c'est-à-dire…）、自我修正、礼貌切割话题。</li>
+            <li><strong>词汇目标：</strong>130 词（口语高分表达 50 条 + 辩论套话）。</li>
+            <li><strong>听：</strong>听 DELF B2 口语样题录音，分析考生如何组织陈述。</li>
+            <li><strong>说：</strong>按考试流程练 5 遍：30 分钟准备 → 10 分钟陈述并接受追问。</li>
+            <li><strong>读：</strong><a href="exams.html">考试页</a> 口语专项与 6 个主题提纲。</li>
+            <li><strong>写：</strong>为 6 个主题各写一份 10 点提纲（不用完整稿）。</li>
+            <li><strong>里程碑：</strong>脱稿陈述 10 分钟不冷场，能自然承接考官追问。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="50" data-level="B2" data-title="真实语料周：无字幕新闻、原版文章与语伴">
+          <span class="wk-n">W50</span><span class="wk-t">真实语料周：无字幕新闻、原版文章与语伴</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-50" hidden>
+          <ul>
+            <li><strong>语法重点：</strong>从真实语料中收集 20 个"我自己写不出来"的句子，逐句拆解结构。</li>
+            <li><strong>词汇目标：</strong>130 词（真实语料自建词表）。</li>
+            <li><strong>听：</strong>每天 45 分钟无字幕法语新闻（<a href="exams.html">资源清单</a>）。</li>
+            <li><strong>说：</strong>与语伴/AI 进行 3 次 30 分钟真实对话，主题不带准备。</li>
+            <li><strong>读：</strong>读 3 篇原版长文（报纸社论、杂志长报道、短篇小说一章）。</li>
+            <li><strong>写：</strong>写 300 词长文摘要 + 个人评论。</li>
+            <li><strong>里程碑：</strong>能用"法语的思路"取词，而不是先想中文再翻译。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="51" data-level="B2" data-title="全真模考周（一）：DELF B2 完整模拟与批改" data-grammar="按考试时间表限时完成，错题分类补漏" data-vocab="4000+ 词，只过错词本">
+          <span class="wk-n">W51</span><span class="wk-t">全真模考周（一）：DELF B2 完整模拟与批改</span>
+          <span class="wk-lv"><span class="badge badge-b2">B2</span></span>
+        </div>
+        <div id="wk-51" hidden>
+          <ul>
+            <li><strong>模考 1：</strong>严格按 <a href="exams.html">考试时间表</a> 完成：听力 30 分钟 → 阅读 60 分钟 → 写作 60 分钟 → 口语准备 30 分钟 + 考试 20 分钟。</li>
+            <li><strong>批改：</strong>用评分标准逐项打分，写作与口语各请一次外部评价（老师/语伴/AI）。</li>
+            <li><strong>错题分类：</strong>听力（语速？词汇？推理？）、阅读（同义替换？长句？）、写作（结构？语法？）、口语（流畅度？用词？）。</li>
+            <li><strong>词汇：</strong>目标 4000+，复习自己的错词本，只过查过的词。</li>
+            <li><strong>说：</strong>把口语部分重录一遍，对比第一版。</li>
+            <li><strong>写：</strong>把写作重写一遍，目标每篇减少 30% 语法错误。</li>
+            <li><strong>里程碑：</strong>总分 ≥45；若某项 <5 分，本周起专项补弱。</li>
+          </ul>
+        </div>
+
+        <div class="week" data-week="52" data-level="B2" data-title="全真模考周（二）+ 年度总结与后续路线" data-grammar="不学新语法点，做全年语法速查表与年度盘点" data-vocab="目标 4000–5000 认知词">
+          <span class="wk-n">W52</span><span class="wk-t">全真模考周（二）+ 年度总结与后续路线</span>
+          <span class="wk-lv"><span class="badge badge-ok">里程碑</span></span>
+        </div>
+        <div id="wk-52" hidden>
+          <ul>
+            <li><strong>模考 2：</strong>再做一套全新模拟卷，目标总分 ≥55，单项均 ≥11/25（DELF B2 及格线为总分 50 且单项 ≥5）。</li>
+            <li><strong>年度盘点：</strong>统计总学习小时、总词量（目标 4000–5000 认知词）、作文篇数、录音时长。</li>
+            <li><strong>作品集：</strong>整理 12 篇最佳写作 + 6 段最佳录音，标注日期，作为一年成果存档。</li>
+            <li><strong>差距分析：</strong>列出与 B2 的五项能力差距（听/说/读/写/文化），各写 2 条具体改进动作。</li>
+            <li><strong>后续路线：</strong>① 报考 DELF B2 并安排 4 周考前冲刺；② 或进入 C1 准备：原版小说、报刊社论、每周 2 次 45 分钟真实对话。</li>
+            <li><strong>说：</strong>录一段 10 分钟年度自述（法语的这一年），保存为里程碑。</li>
+            <li><strong>里程碑：</strong>DELF B2 模拟 ≥50（总分）且无单项 <5 = 一年目标达成。</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ 使用与说明 ============ -->
+    <section class="section">
+      <h2 data-i18n="cal.how.title">怎么执行这张表</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3 data-i18n="cal.how.week.title">每周固定节奏</h3>
+          <ol class="mb-0" data-i18n-html="cal.how.week.list">
+            <li>周一：读当周清单，把词汇导入背词工具（30 分钟）</li>
+            <li>周二–周五：每天 2 小时标准循环（词汇→语法→精听→口语→阅读→写作）</li>
+            <li>周六：3 小时输出日（写作 + 口语 + 语伴/AI 对话）</li>
+            <li>周日：1 小时复盘（错题、当周自测、打勾）</li>
+          </ol>
+        </div>
+        <div class="card">
+          <h3 data-i18n="cal.how.gate.title">四个关卡周</h3>
+          <p class="mb-0 zh" data-i18n-html="cal.how.gate.body">
+            第 <strong>13 / 26 / 40 / 52</strong> 周是硬性关卡，只做检测与补漏，不学新内容。
+            每次都要录音 + 写文章存档，因为没有留痕就无法判断进步。
+            未达标不要硬走：补 1–2 周再进下一阶段，比带病前进便宜得多。
+          </p>
+        </div>
+      </div>
+
+      <div class="note note-tip mt-3">
+        <div class="note-title" data-i18n="cal.short.title">时间不够怎么办</div>
+        <p class="mb-0" data-i18n="cal.short.body">
+          每天只有 1 小时：保留"词汇 20 分钟 + 输出 40 分钟"两项不可省，
+          听力和阅读挪到通勤泛听泛读；进度会自然拉长到 18–24 个月，这是正常的，
+          比每天 1 小时只背单词、两年后不会说要好得多。
+        </p>
+      </div>
+
+      <div class="btn-row mt-3">
+        <a class="btn btn-primary" href="phonetics.html" data-i18n="cal.cta.phon">去学第 1–2 周：发音</a>
+        <a class="btn" href="grammar.html" data-i18n="idx.mod.gr">语法体系</a>
+        <a class="btn" href="vocab.html" data-i18n="idx.mod.vo">核心词汇 2500+</a>
+        <a class="btn" href="dialogue.html" data-i18n="idx.mod.dl">情境对话 40 篇</a>
+        <a class="btn" href="exams.html" data-i18n="idx.mod.ex">DELF B2 考试</a>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="index.html" data-i18n="nav.home">首页</a><a href="calendar.html" data-i18n="nav.calendar">52周计划</a><a href="phonetics.html" data-i18n="nav.phonetics">发音</a>
+      <a href="grammar.html" data-i18n="nav.grammar">语法</a><a href="vocab.html" data-i18n="nav.vocab">词汇</a><a href="dialogue.html" data-i18n="nav.dialogue">对话</a><a href="exams.html" data-i18n="nav.exams">考试</a>
+    </div>
+    <p class="mb-0" data-i18n-html="foot.plan">「法语 B2 · 一年计划」是一个纯静态学习站，进度保存在你的浏览器本地。© <span id="year"></span></p>
+  </div>
+</footer>
+
+<button class="to-top" type="button" aria-label="回到顶部">↑</button>
+<script src="lang.js"></script>
+<script src="lang-weeks.js"></script>
+<script src="app.js"></script>
+<script src="daily-data.js"></script>
+<script src="quiz-bank.js"></script>
+<script src="exam-items.js"></script>
+<script src="learn.js"></script>
+<script src="i18n-core.js"></script>
+<script>
+/* 清空打卡记录（本页专属小逻辑，不写入共享 app.js） */
+document.getElementById('resetBtn').addEventListener('click', function () {
+  if (confirm(FR.t('confirm.reset'))) {
+    FR.Progress.reset();
+    location.reload();
+  }
+});
+</script>
+</body>
+</html>
